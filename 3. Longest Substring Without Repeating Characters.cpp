@@ -1,17 +1,23 @@
+//Sliding Window
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        int start=-1;
-        int maxlen=0;
-        map<char,int> dict;
-        // vector<int> dict(256, -1);
-        for(int i=0;i<s.length();i++)
+        int maxlen =0;
+        int i=0;
+        int j=0;
+        unordered_map<char,int> dict;
+        while(j<s.length())
         {
-            if(dict[s[i]]>start)
-                start=dict[s[i]];
-            dict[s[i]]=i;
-            maxlen=max(maxlen,i-start);
+              dict[s[j]]++;
+            while(dict[s[j]] != 1){
+                dict[s[i]]--;
+                i++;
+            }
+            
+            maxlen= max(maxlen, j-i+1);
+            j++;
         }
+        
         return maxlen;
     }
 };
